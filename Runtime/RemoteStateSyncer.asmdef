@@ -1,15 +1,13 @@
 {
-  "name": "dev.sleightly.template",
-  "references": [
-    "VRC.SDK3A",
-    "VRC.SDKBase"
-  ],
+  "name": "RemoteStateSyncer",
+  "references": [],
   "includePlatforms": [],
   "excludePlatforms": [],
   "allowUnsafeCode": false,
-  "autoReferenced": true,
   "overrideReferences": false,
   "precompiledReferences": [],
+  "autoReferenced": true,
   "defineConstraints": [],
-  "optionalUnityReferences": []
+  "versionDefines": [],
+  "noEngineReferences": false
 }

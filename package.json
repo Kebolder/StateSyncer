@@ -1,22 +1,19 @@
 {
-  "name": "dev.sleightly.template",
-  "displayName": "JS-Template",
-  "version": "0.0.0",
-  "description": "A VPM Package Template",
-  "url": "https://github.com/JustSleightly/JS-Template",
-  "vpmDependencies": {
-    "com.vrchat.avatars": "^3.8.0"
-  },
+  "name": "com.kebolder.remotestatesyncer",
+  "displayName": "Kebolder - Remote State Syncer",
+  "version": "1.0.0",
+  "description": "Simple tool to sync your local state to the remote by interconnecting everything using drivers.",
+  "url": "https://github.com/Kebolder/StateSyncer",
+  "vpmDependencies": {},
   "type": "tool",
   "keywords": [
-    "JustSleightly",
-    "Sleightly",
-    "VRChat",
-    "Template"
+     "tool",
+     "sync",
+     "vrchat",
+     "remote",
+     "quailty of life"
   ],
   "author": {
-    "name": "JustSleightly",
-    "email": "just@sleightly.dev",
-    "url": "https://just.sleightly.dev"
+    "name": "Kebolder"
   }
 }

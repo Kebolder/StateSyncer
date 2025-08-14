@@ -1,4 +1,4 @@
-Copyright (C) JustSleightly, LLC - All Rights Reserved
+Copyright (C) Kebolder, LLC - All Rights Reserved
 
 Unauthorized copying of this file, via any medium is strictly prohibited
 Proprietary and confidential
@@ -10,6 +10,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-Written by Steven Nguyen <just@sleightly.dev>, January 2023
-https://terms.sleightly.dev/
