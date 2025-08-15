@@ -752,9 +752,9 @@ if (animatorCloner != null)
                 }
             }
             
-            if (numberedStates.Count > maxStates)
+            if (statesWithValidNumbers > maxStates)
             {
-                GUILayout.Label($"⚠ Warning: {numberedStates.Count} states found but only {maxStates} can be handled", EditorStyles.label);
+                GUILayout.Label($"⚠ Warning: {statesWithValidNumbers} numbered states found but only {maxStates} can be handled", EditorStyles.label);
                 GUILayout.Label("Select more parameters or reduce state count", EditorStyles.label);
             }
             else if (statesWithInvalidNumbers > 0)

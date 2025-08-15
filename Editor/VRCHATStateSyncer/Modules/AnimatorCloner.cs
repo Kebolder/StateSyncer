@@ -527,10 +527,26 @@ namespace JaxTools.AnimatorTools
             }
             
             int maxStates = (int)Mathf.Pow(2, BinaryBitDepth);
-            if (numberedStates.Count > maxStates)
+            
+            // Count only states that have actual numbers (auto or user-assigned)
+            int statesWithNumbers = 0;
+            foreach (var state in numberedStates)
+            {
+                if (state == null) continue;
+                
+                string numberStr = Regex.Match(state.name, @"\d{1,3}$").Value;
+                if (int.TryParse(numberStr, out _) || UserAssignedNumbers.ContainsKey(state))
+                {
+                    statesWithNumbers++;
+                }
+            }
+            
+            Debug.Log($"[SYNCER] Binary validation: {statesWithNumbers} states with numbers, max capacity: {maxStates}");
+            
+            if (statesWithNumbers > maxStates)
             {
                 EditorUtility.DisplayDialog("Too Many States",
-                    $"Selected bit depth ({BinaryBitDepth}) can only handle {maxStates} states, but {numberedStates.Count} states were found.",
+                    $"Selected bit depth ({BinaryBitDepth}) can only handle {maxStates} states, but {statesWithNumbers} numbered states were found.",
                     "OK");
                 return;
             }
@@ -568,6 +584,21 @@ namespace JaxTools.AnimatorTools
                 if (int.TryParse(numberStr, out _) || UserAssignedNumbers.ContainsKey(state))
                 {
                     statesToClone.Add(state);
+                }
+            }
+            
+            // Log the states that will actually be processed
+            Debug.Log($"[SYNCER] States to clone in binary mode: {statesToClone.Count}");
+            foreach (var state in statesToClone)
+            {
+                string numberStr = Regex.Match(state.name, @"\d{1,3}$").Value;
+                if (int.TryParse(numberStr, out int num))
+                {
+                    Debug.Log($"[SYNCER]  - {state.name} (auto-numbered: {num})");
+                }
+                else if (UserAssignedNumbers.TryGetValue(state, out int userNum))
+                {
+                    Debug.Log($"[SYNCER]  - {state.name} (user-assigned: {userNum})");
                 }
             }
             
@@ -647,9 +678,11 @@ namespace JaxTools.AnimatorTools
             
             if (addParameterDriverForLocalSync)
             {
+                Debug.Log($"[SYNCER] Adding binary parameter drivers for local sync...");
                 for (int i = 0; i < numberedStates.Count; i++)
                 {
                     AnimatorState originalState = numberedStates[i];
+                    if (originalState == null) continue;
                     
                     string originalStateName = originalState.name;
                     int stateNumber;
@@ -660,11 +693,14 @@ namespace JaxTools.AnimatorTools
                         Debug.Log($"[SYNCER] Adding binary parameter drivers to original state '{originalState.name}' for state number {stateNumber}");
                         ParameterDriverUtilities.AddBinaryParameterDriversToState(originalState, stateNumber, SelectedBoolParameters.ToArray());
                     }
-
                     else if (UserAssignedNumbers.TryGetValue(originalState, out stateNumber))
                     {
                         Debug.Log($"[SYNCER] Adding binary parameter drivers to original state '{originalState.name}' for state number {stateNumber}");
                         ParameterDriverUtilities.AddBinaryParameterDriversToState(originalState, stateNumber, SelectedBoolParameters.ToArray());
+                    }
+                    else
+                    {
+                        Debug.Log($"[SYNCER] Skipping state '{originalState.name}' - no number assigned");
                     }
                 }
             }
@@ -793,7 +829,7 @@ namespace JaxTools.AnimatorTools
             Debug.Log($"[SYNCER] Successfully created binary mode clone network with {clonedStates.Count} states");
             Debug.Log($"[SYNCER] Used {BinaryBitDepth} boolean parameters: {string.Join(", ", SelectedBoolParameters)}");
             
-            string successMessage = $"Created binary interconnected clone network with {clonedStates.Count} states using {BinaryBitDepth} boolean parameters";
+            string successMessage = $"Created binary interconnected clone network with {clonedStates.Count} numbered states using {BinaryBitDepth} boolean parameters";
             EditorUtility.DisplayDialog("Success", successMessage, "OK");
         }
 

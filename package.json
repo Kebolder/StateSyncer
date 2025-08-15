@@ -1,7 +1,7 @@
 {
   "name": "com.kebolder.remotestatesyncer",
   "displayName": "Kebolder - Remote State Syncer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple tool to sync your local state to the remote by interconnecting everything using drivers.",
   "url": "https://github.com/Kebolder/StateSyncer",
   "vpmDependencies": {},
